@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="KEYMONEYS COLLECTION - Premium Sneakers. Shop the latest Nike, Adidas, Jordan and more. Fast delivery across Kenya." />
+  <title>KEYMONEYS COLLECTION | Premium Sneakers</title>
+
+  <!-- Google Fonts: Orbitron (futuristic) + Rajdhani (body) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;800;900&family=Rajdhani:wght@300;400;500;600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="style.css" />
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpolygon points='50,5 95,27 95,73 50,95 5,73 5,27' fill='%2300FF66'/%3E%3C/svg%3E">
+  <meta name="theme-color" content="#000000">
+  
+  <style>
+    /* Additional logo styles */
+    .logo-img {
+      height: 50px;
+      width: auto;
+      transition: all 0.3s ease;
+    }
+    
+    .logo-img:hover {
+      transform: scale(1.02);
+      filter: drop-shadow(0 0 10px rgba(0, 255, 102, 0.5));
+    }
+    
+    .footer-logo {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      margin-bottom: 15px;
+    }
+    
+    .footer-logo img {
+      transition: all 0.3s ease;
+    }
+    
+    .footer-logo img:hover {
+      filter: drop-shadow(0 0 10px rgba(0, 255, 102, 0.5));
+    }
+    
+    @media (max-width: 768px) {
+      .logo-img {
+        height: 40px;
+      }
+      .footer-logo {
+        align-items: center;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ═══════════════════════════════════════════
+       LOADING SCREEN
+  ═══════════════════════════════════════════ -->
+  <div id="loading-screen" class="loading-screen">
+    <div class="loading-inner">
+      <div class="loading-logo">
+        <svg viewBox="0 0 80 80" class="logo-svg-load">
+          <polygon points="40,5 75,25 75,55 40,75 5,55 5,25" fill="none" stroke="#00FF66" stroke-width="2"/>
+          <polygon points="40,15 65,29 65,51 40,65 15,51 15,29" fill="none" stroke="#0099FF" stroke-width="1" opacity="0.6"/>
+          <text x="40" y="46" text-anchor="middle" fill="#00FF66" font-size="13" font-family="Orbitron" font-weight="700">KC</text>
+        </svg>
+      </div>
+      <div class="loading-brand">KEYMONEYS COLLECTION</div>
+      <div class="loading-bar-wrap"><div class="loading-bar" id="loading-bar"></div></div>
+      <div class="loading-text" id="loading-text">Initializing...</div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════
+       TOAST NOTIFICATIONS
+  ═══════════════════════════════════════════ -->
+  <div id="toast-container" class="toast-container"></div>
+
+  <!-- ═══════════════════════════════════════════
+       NAVBAR
+  ═══════════════════════════════════════════ -->
+  <nav id="navbar" class="navbar">
+    <div class="nav-container">
+
+      <!-- Logo with Image -->
+      <a href="#home" class="nav-logo" aria-label="KEYMONEYS COLLECTION Home">
+        <img src="KEYMONEYS_LOGO.png" alt="KEYMONEYS COLLECTION Logo" class="logo-img">
+        <div class="logo-text">
+          <span class="logo-main">KEYMONEYS</span>
+          <span class="logo-sub">COLLECTION</span>
+        </div>
+      </a>
+
+      <!-- Desktop Nav Links -->
+      <ul class="nav-links" id="nav-links">
+        <li><a href="#home" class="nav-link active">HOME</a></li>
+        <li><a href="#shop" class="nav-link">ALL SHOES</a></li>
+        <li><a href="#" class="nav-link" id="help-btn">HELP</a></li>
+      </ul>
+
+      <!-- Nav Actions -->
+      <div class="nav-actions">
+        <!-- Search -->
+        <div class="search-wrap" id="search-wrap">
+          <input type="text" id="nav-search" class="nav-search-input" placeholder="Search sneakers..." aria-label="Search products" />
+          <button class="search-icon-btn" id="search-toggle" aria-label="Toggle search">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          </button>
+        </div>
+
+        <!-- Wishlist -->
+        <button class="nav-icon-btn" id="wishlist-btn" aria-label="Wishlist">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+          <span class="wishlist-count" id="wishlist-count">0</span>
+        </button>
+
+        <!-- Cart -->
+        <button class="nav-icon-btn cart-btn" id="cart-toggle" aria-label="Open cart">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+          <span class="cart-count" id="cart-count">0</span>
+        </button>
+
+        <!-- Hamburger -->
+        <button class="hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+
+    </div>
+  </nav>
+
+  <!-- Mobile Menu Overlay -->
+  <div class="mobile-menu-overlay" id="mobile-menu-overlay"></div>
+
+  <!-- ═══════════════════════════════════════════
+       HERO SECTION
+  ═══════════════════════════════════════════ -->
+  <section id="home" class="hero-section">
+    <!-- Particle Canvas Background -->
+    <canvas id="particles-canvas" class="particles-canvas"></canvas>
+
+    <!-- Hero Grid Lines -->
+    <div class="hero-grid-lines" aria-hidden="true">
+      <div class="grid-h"></div><div class="grid-h"></div><div class="grid-h"></div>
+      <div class="grid-v"></div><div class="grid-v"></div><div class="grid-v"></div>
+    </div>
+
+    <!-- Scan line effect -->
+    <div class="scan-line" aria-hidden="true"></div>
+
+    <!-- Hero Content -->
+    <div class="hero-content">
+      <div class="hero-eyebrow">
+        <span class="eyebrow-dot"></span>
+        <span>EST. 2020 — NAIROBI, KENYA</span>
+        <span class="eyebrow-dot"></span>
+      </div>
+      <h1 class="hero-title">
+        <span class="hero-title-line">WELCOME TO</span>
+        <span class="hero-title-line hero-brand-name">KEYMONEYS</span>
+        <span class="hero-title-line hero-brand-name">COLLECTION</span>
+      </h1>
+      <p class="hero-subtitle">Premium Sneakers &bull; Style &bull; Future Fashion</p>
+      <div class="hero-cta-group">
+        <a href="#shop" class="btn-primary">
+          <span>Shop Now</span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </a>
+        <a href="#featured" class="btn-ghost">New Arrivals</a>
+      </div>
+    </div>
+
+    <!-- Hero 3D Shoe -->
+    <div class="hero-shoe-wrap" aria-hidden="true">
+      <div class="shoe-platform">
+        <div class="platform-ring ring-1"></div>
+        <div class="platform-ring ring-2"></div>
+        <div class="platform-ring ring-3"></div>
+      </div>
+      <div class="shoe-3d-container" id="hero-shoe">
+        <div class="shoe-glow-bg"></div>
+        <!-- SVG Sneaker Illustration -->
+        <svg class="hero-shoe-svg" viewBox="0 0 520 290" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <filter id="shoe-glow" x="-30%" y="-30%" width="160%" height="160%">
+              <feGaussianBlur stdDeviation="4" result="blur"/>
+              <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+            </filter>
+            <filter id="neon-glow" x="-40%" y="-40%" width="180%" height="180%">
+              <feGaussianBlur stdDeviation="8" result="blur"/>
+              <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+            </filter>
+            <linearGradient id="sole-grad" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%" style="stop-color:#003322"/>
+              <stop offset="50%" style="stop-color:#00FF66"/>
+              <stop offset="100%" style="stop-color:#003322"/>
+            </linearGradient>
+            <linearGradient id="upper-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" style="stop-color:#1a1a2e"/>
+              <stop offset="100%" style="stop-color:#0d0d1a"/>
+            </linearGradient>
+            <linearGradient id="panel-grad" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%" style="stop-color:#0099FF;stop-opacity:0.5"/>
+              <stop offset="100%" style="stop-color:#00FF66;stop-opacity:0.3"/>
+            </linearGradient>
+          </defs>
+
+          <!-- Ground glow -->
+          <ellipse cx="255" cy="268" rx="180" ry="14" fill="#00FF66" opacity="0.15" filter="url(#neon-glow)"/>
+
+          <!-- Outsole -->
+          <path d="M 55 228 L 55 243 Q 57 256 80 258 L 400 258 Q 435 258 440 240 Q 443 226 425 220 Z" fill="#080808" stroke="#00FF66" stroke-width="0.8" opacity="0.9"/>
+          <path d="M 60 228 L 425 228 Q 440 228 440 238 L 440 244 Q 435 254 415 256 L 80 256 Q 62 256 59 244 L 59 232 Z" fill="#111118"/>
+          <!-- Tread marks -->
+          <rect x="80" y="249" width="22" height="5" rx="2" fill="#00FF66" opacity="0.25"/>
+          <rect x="112" y="249" width="22" height="5" rx="2" fill="#00FF66" opacity="0.25"/>
+          <rect x="144" y="249" width="22" height="5" rx="2" fill="#00FF66" opacity="0.25"/>
+          <rect x="176" y="249" width="22" height="5" rx="2" fill="#00FF66" opacity="0.25"/>
+          <rect x="208" y="249" width="22" height="5" rx="2" fill="#00FF66" opacity="0.25"/>
+          <rect x="240" y="249" width="22" height="5" rx="2" fill="#00FF66" opacity="0.25"/>
+          <rect x="272" y="249" width="22" height="5" rx="2" fill="#00FF66" opacity="0.25"/>
+          <rect x="304" y="249" width="22" height="5" rx="2" fill="#00FF66" opacity="0.25"/>
+          <rect x="336" y="249" width="22" height="5" rx="2" fill="#00FF66" opacity="0.25"/>
+          <rect x="368" y="249" width="22" height="5" rx="2" fill="#00FF66" opacity="0.25"/>
+          <rect x="400" y="249" width="22" height="5" rx="2" fill="#00FF66" opacity="0.25"/>
+          <!-- Air unit -->
+          <ellipse cx="360" cy="237" rx="38" ry="8" fill="none" stroke="#0099FF" stroke-width="1.2" opacity="0.7" filter="url(#shoe-glow)"/>
+          <ellipse cx="360" cy="237" rx="30" ry="5" fill="#0099FF" opacity="0.08"/>
+
+          <!-- Midsole -->
+          <path d="M 62 224 L 424 224 L 425 228 L 60 228 Z" fill="url(#sole-grad)" opacity="0.9" filter="url(#shoe-glow)"/>
+
+          <!-- Main upper body -->
+          <path d="M 88 224 L 100 140 Q 106 100 148 80 L 230 65 Q 295 53 328 72 L 370 118 L 395 175 L 418 224 Z" fill="url(#upper-grad)" stroke="#1e1e3a" stroke-width="1"/>
+
+          <!-- Toe box -->
+          <path d="M 88 224 L 72 214 Q 42 202 38 182 Q 33 162 48 153 Q 64 145 92 148 L 105 148 L 100 224 Z" fill="#0e0e1c" stroke="#1a1a30" stroke-width="1"/>
+          <path d="M 50 178 Q 68 162 96 163" fill="none" stroke="#222240" stroke-width="1" stroke-dasharray="4,3"/>
+
+          <!-- Ankle / heel area -->
+          <path d="M 348 100 Q 388 85 410 112 L 430 178 L 418 224 L 365 224 L 345 180 Z" fill="#0c0c1e" stroke="#1a1a30" stroke-width="1"/>
+          <!-- Heel logo circle -->
+          <circle cx="408" cy="192" r="13" fill="none" stroke="#00FF66" stroke-width="1.2" opacity="0.7" filter="url(#shoe-glow)"/>
+          <text x="408" y="196" text-anchor="middle" fill="#00FF66" font-size="8" font-family="Orbitron" font-weight="700" opacity="0.9">KC</text>
+
+          <!-- Tongue -->
+          <path d="M 158 80 L 153 152 L 206 150 L 199 79 Z" fill="#0c0c1e"/>
+          <path d="M 163 82 L 159 146 L 200 144 L 195 82 Z" fill="#00FF66" opacity="0.06"/>
+          <path d="M 161 82 L 157 148 L 204 146 L 198 82 Z" fill="none" stroke="#00FF66" stroke-width="0.8" opacity="0.5"/>
+
+          <!-- Laces + eyelets -->
+          <line x1="164" y1="90" x2="196" y2="90" stroke="#00FF66" stroke-width="1.8" opacity="0.85" filter="url(#shoe-glow)"/>
+          <line x1="162" y1="102" x2="195" y2="102" stroke="#00FF66" stroke-width="1.8" opacity="0.85" filter="url(#shoe-glow)"/>
+          <line x1="160" y1="114" x2="194" y2="114" stroke="#00FF66" stroke-width="1.8" opacity="0.85" filter="url(#shoe-glow)"/>
+          <line x1="158" y1="126" x2="193" y2="126" stroke="#00FF66" stroke-width="1.8" opacity="0.85" filter="url(#shoe-glow)"/>
+          <line x1="157" y1="138" x2="192" y2="138" stroke="#00FF66" stroke-width="1.8" opacity="0.85" filter="url(#shoe-glow)"/>
+          <!-- Eyelet dots -->
+          <circle cx="167" cy="90" r="3" fill="#00FF66" opacity="0.95" filter="url(#shoe-glow)"/>
+          <circle cx="193" cy="90" r="3" fill="#00FF66" opacity="0.95" filter="url(#shoe-glow)"/>
+          <circle cx="165" cy="102" r="3" fill="#00FF66" opacity="0.95" filter="url(#shoe-glow)"/>
+          <circle cx="192" cy="102" r="3" fill="#00FF66" opacity="0.95" filter="url(#shoe-glow)"/>
+          <circle cx="163" cy="114" r="3" fill="#00FF66" opacity="0.95" filter="url(#shoe-glow)"/>
+          <circle cx="191" cy="114" r="3" fill="#00FF66" opacity="0.95" filter="url(#shoe-glow)"/>
+          <circle cx="161" cy="126" r="3" fill="#00FF66" opacity="0.95" filter="url(#shoe-glow)"/>
+          <circle cx="190" cy="126" r="3" fill="#00FF66" opacity="0.95" filter="url(#shoe-glow)"/>
+          <circle cx="160" cy="138" r="3" fill="#00FF66" opacity="0.95" filter="url(#shoe-glow)"/>
+          <circle cx="189" cy="138" r="3" fill="#00FF66" opacity="0.95" filter="url(#shoe-glow)"/>
+
+          <!-- Side panel / tech stripe -->
+          <path d="M 210 168 Q 282 142 386 162 Q 372 178 288 182 Q 250 185 210 178 Z" fill="url(#panel-grad)" filter="url(#shoe-glow)"/>
+          <path d="M 215 168 Q 280 146 382 165" fill="none" stroke="#0099FF" stroke-width="2" opacity="0.9" filter="url(#shoe-glow)"/>
+
+          <!-- Upper highlight lines -->
+          <path d="M 110 148 Q 180 132 280 142" fill="none" stroke="#ffffff" stroke-width="0.5" opacity="0.1"/>
+          <path d="M 105 165 Q 190 150 310 158" fill="none" stroke="#ffffff" stroke-width="0.5" opacity="0.08"/>
+
+          <!-- Neon sole edge glow -->
+          <path d="M 60 224 L 425 224" stroke="#00FF66" stroke-width="2.5" filter="url(#neon-glow)" opacity="0.9"/>
+          <path d="M 60 224 L 425 224" stroke="#00FF66" stroke-width="1" opacity="1"/>
+        </svg>
+      </div>
+      <div class="shoe-scan-beam" aria-hidden="true"></div>
+    </div>
+
+    <!-- Scroll Indicator -->
+    <div class="scroll-indicator" aria-label="Scroll down">
+      <div class="scroll-line"></div>
+      <span>SCROLL</span>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       STATS SECTION
+  ═══════════════════════════════════════════ -->
+  <section id="stats" class="stats-section reveal">
+    <div class="container">
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-icon">👟</div>
+          <div class="stat-number" data-target="1000">0</div>
+          <div class="stat-plus">+</div>
+          <div class="stat-label">Shoes Sold</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon">😊</div>
+          <div class="stat-number" data-target="500">0</div>
+          <div class="stat-plus">+</div>
+          <div class="stat-label">Happy Customers</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon">🚀</div>
+          <div class="stat-number" data-target="50">0</div>
+          <div class="stat-plus">+</div>
+          <div class="stat-label">Brands Available</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon">⭐</div>
+          <div class="stat-number" data-target="4">0</div>
+          <div class="stat-dot">.</div>
+          <div class="stat-number stat-decimal" data-target="9">0</div>
+          <div class="stat-label">Average Rating</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       FEATURED CAROUSEL
+  ═══════════════════════════════════════════ -->
+  <section id="featured" class="featured-section reveal">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-tag">🔥 FEATURED</div>
+        <h2 class="section-title">HOT DROPS</h2>
+        <p class="section-sub">Exclusive picks curated just for you</p>
+      </div>
+      <div class="carousel-wrap">
+        <button class="carousel-btn prev-btn" id="carousel-prev" aria-label="Previous">&#8249;</button>
+        <div class="carousel-viewport" id="carousel-viewport">
+          <div class="carousel-track" id="carousel-track">
+            <!-- Injected by JS -->
+          </div>
+        </div>
+        <button class="carousel-btn next-btn" id="carousel-next" aria-label="Next">&#8250;</button>
+      </div>
+      <div class="carousel-dots" id="carousel-dots"></div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       ALL PRODUCTS / SHOP SECTION
+  ═══════════════════════════════════════════ -->
+  <section id="shop" class="shop-section reveal">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-tag">🛒 SHOP</div>
+        <h2 class="section-title">ALL SHOES</h2>
+        <p class="section-sub">Find your perfect pair</p>
+      </div>
+
+      <!-- Filters -->
+      <div class="filters-bar">
+        <div class="filter-categories">
+          <button class="filter-btn active" data-filter="All">All</button>
+          <button class="filter-btn" data-filter="Sneakers">Sneakers</button>
+          <button class="filter-btn" data-filter="Running">Running</button>
+          <button class="filter-btn" data-filter="Casual">Casual</button>
+          <button class="filter-btn" data-filter="Basketball">Basketball</button>
+          <button class="filter-btn" data-filter="Boots">Boots</button>
+        </div>
+        <div class="filter-right">
+          <div class="price-filter">
+            <label for="price-range">Max: KES <span id="price-label">15000</span></label>
+            <input type="range" id="price-range" min="0" max="15000" step="500" value="15000" />
+          </div>
+          <select class="sort-select" id="sort-select" aria-label="Sort products">
+            <option value="default">Sort By</option>
+            <option value="price-asc">Price: Low → High</option>
+            <option value="price-desc">Price: High → Low</option>
+            <option value="rating">Top Rated</option>
+            <option value="name">Name A–Z</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Results count -->
+      <div class="results-count" id="results-count">Showing 0 products</div>
+
+      <!-- Products Grid -->
+      <div class="products-grid" id="products-grid">
+        <!-- Injected by JS -->
+      </div>
+
+      <!-- No Results -->
+      <div class="no-results hidden" id="no-results">
+        <div class="no-results-icon">🔍</div>
+        <h3>No shoes found</h3>
+        <p>Try adjusting your filters or search terms</p>
+        <button class="btn-primary" onclick="resetFilters()">Reset Filters</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       REVIEWS SECTION
+  ═══════════════════════════════════════════ -->
+  <section id="reviews" class="reviews-section reveal">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-tag">💬 REVIEWS</div>
+        <h2 class="section-title">WHAT PEOPLE SAY</h2>
+        <p class="section-sub">Trusted by hundreds across Kenya</p>
+      </div>
+      <div class="reviews-grid" id="reviews-grid">
+        <!-- Injected by JS -->
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       FOOTER
+  ═══════════════════════════════════════════ -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <div class="footer-logo">
+            <img src="KEYMONEYS_LOGO.png" alt="KEYMONEYS COLLECTION Logo" style="height: 50px; width: auto; margin-bottom: 15px;">
+            <div class="logo-text">
+              <span class="logo-main">KEYMONEYS</span>
+              <span class="logo-sub">COLLECTION</span>
+            </div>
+          </div>
+          <p class="footer-tagline">Premium Sneakers for the Future Generation. Based in Nairobi, Kenya.</p>
+          <a href="#" id="footer-whatsapp" class="footer-whatsapp-link">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+            Chat with Us on WhatsApp
+          </a>
+        </div>
+        <div class="footer-links-col">
+          <h4>Quick Links</h4>
+          <ul>
+            <li><a href="#home">Home</a></li>
+            <li><a href="#shop">All Shoes</a></li>
+            <li><a href="#featured">Featured</a></li>
+            <li><a href="#reviews">Reviews</a></li>
+          </ul>
+        </div>
+        <div class="footer-links-col">
+          <h4>Categories</h4>
+          <ul>
+            <li><a href="#shop" onclick="filterByCategory('Sneakers')">Sneakers</a></li>
+            <li><a href="#shop" onclick="filterByCategory('Running')">Running</a></li>
+            <li><a href="#shop" onclick="filterByCategory('Casual')">Casual</a></li>
+            <li><a href="#shop" onclick="filterByCategory('Basketball')">Basketball</a></li>
+            <li><a href="#shop" onclick="filterByCategory('Boots')">Boots</a></li>
+          </ul>
+        </div>
+        <div class="footer-links-col">
+          <h4>Contact</h4>
+          <ul>
+            <li><span>📍 Nairobi, Kenya</span></li>
+            <li><a href="#" id="footer-contact-wa">💬 WhatsApp Us</a></li>
+            <li><span>⏰ Mon–Sat: 8AM–8PM</span></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; <span id="footer-year"></span> KEYMONEYS COLLECTION. All rights reserved.</p>
+        <p class="footer-made">Made with ❤️ in Nairobi</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ═══════════════════════════════════════════
+       CART PANEL (Slide-in)
+  ═══════════════════════════════════════════ -->
+  <div class="overlay" id="cart-overlay"></div>
+  <aside class="cart-panel" id="cart-panel" role="dialog" aria-label="Shopping Cart" aria-hidden="true">
+    <div class="cart-header">
+      <h2>YOUR CART</h2>
+      <button class="cart-close" id="cart-close" aria-label="Close cart">&times;</button>
+    </div>
+    <div class="cart-items" id="cart-items">
+      <div class="cart-empty" id="cart-empty">
+        <div class="cart-empty-icon">🛒</div>
+        <p>Your cart is empty</p>
+        <a href="#shop" class="btn-primary" id="cart-shop-link">Start Shopping</a>
+      </div>
+    </div>
+    <div class="cart-footer" id="cart-footer">
+      <div class="cart-subtotal">
+        <span>Subtotal</span>
+        <span id="cart-subtotal">KES 0</span>
+      </div>
+      <div class="cart-shipping">
+        <span>Delivery</span>
+        <span class="free-shipping">Arrange on WhatsApp</span>
+      </div>
+      <div class="cart-total">
+        <span>TOTAL</span>
+        <span id="cart-total-amount">KES 0</span>
+      </div>
+      <button class="btn-checkout" id="checkout-btn">CHECKOUT →</button>
+      <button class="btn-clear-cart" id="clear-cart-btn">Clear Cart</button>
+    </div>
+  </aside>
+
+  <!-- ═══════════════════════════════════════════
+       QUICK VIEW MODAL
+  ═══════════════════════════════════════════ -->
+  <div class="modal-overlay" id="quickview-overlay"></div>
+  <div class="modal quickview-modal" id="quickview-modal" role="dialog" aria-label="Quick View" aria-hidden="true">
+    <button class="modal-close" id="quickview-close" aria-label="Close">&times;</button>
+    <div class="quickview-content" id="quickview-content">
+      <!-- Injected by JS -->
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════
+       WISHLIST MODAL
+  ═══════════════════════════════════════════ -->
+  <div class="modal-overlay" id="wishlist-overlay"></div>
+  <div class="modal wishlist-modal" id="wishlist-modal" role="dialog" aria-label="Wishlist" aria-hidden="true">
+    <div class="modal-header">
+      <h2>❤️ WISHLIST</h2>
+      <button class="modal-close" id="wishlist-close" aria-label="Close wishlist">&times;</button>
+    </div>
+    <div class="wishlist-items" id="wishlist-items">
+      <!-- Injected by JS -->
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════
+       CHECKOUT MODAL
+  ═══════════════════════════════════════════ -->
+  <div class="modal-overlay" id="checkout-overlay"></div>
+  <div class="modal checkout-modal" id="checkout-modal" role="dialog" aria-label="Checkout" aria-hidden="true">
+    <div class="modal-header">
+      <h2>CHECKOUT</h2>
+      <button class="modal-close" id="checkout-close" aria-label="Close checkout">&times;</button>
+    </div>
+    <!-- Step 1: Form -->
+    <div class="checkout-step" id="checkout-step-1">
+      <p class="checkout-intro">Almost there! Fill in your details and we'll confirm availability.</p>
+      <div class="order-summary-mini" id="order-summary-mini">
+        <!-- Injected by JS -->
+      </div>
+      <form class="checkout-form" id="checkout-form" novalidate>
+        <div class="form-group">
+          <label for="customer-name">First Name <span class="required">*</span></label>
+          <input type="text" id="customer-name" placeholder="e.g. John" required autocomplete="given-name" />
+        </div>
+        <div class="form-group">
+          <label for="customer-phone">Phone Number <span class="required">*</span></label>
+          <input type="tel" id="customer-phone" placeholder="07XXXXXXXX" required autocomplete="tel" />
+        </div>
+        <div class="form-group">
+          <label for="customer-location">Location / Area <span class="required">*</span></label>
+          <input type="text" id="customer-location" placeholder="e.g. Nairobi CBD, Westlands..." required autocomplete="address-level2" />
+        </div>
+        <div class="form-group">
+          <label for="customer-notes">Order Notes (optional)</label>
+          <textarea id="customer-notes" placeholder="Any special requests or notes..." rows="2"></textarea>
+        </div>
+        <button type="submit" class="btn-checkout btn-submit-order">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413z"/></svg>
+          SEND ORDER ON WHATSAPP
+        </button>
+      </form>
+    </div>
+    <!-- Step 2: Confirmation -->
+    <div class="checkout-step hidden" id="checkout-step-2">
+      <div class="order-success">
+        <div class="success-icon">✅</div>
+        <h3>Order Sent!</h3>
+        <p class="success-msg">Thank you. Your order has been sent to <strong>KEYMONEYS COLLECTION</strong>. Please wait for confirmation of shoe availability before payment.</p>
+        <div class="success-details" id="success-details"></div>
+        <button class="btn-primary" id="success-continue">Continue Shopping</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════
+       FLOATING BUTTONS
+  ═══════════════════════════════════════════ -->
+  <!-- WhatsApp Float -->
+  <a href="#" id="whatsapp-float" class="whatsapp-float" aria-label="Chat on WhatsApp" title="Chat with us on WhatsApp">
+    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+    <span class="wa-tooltip">Chat with Us!</span>
+  </a>
+
+  <!-- Back to Top -->
+  <button id="back-to-top" class="back-to-top" aria-label="Back to top" title="Back to top">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="18 15 12 9 6 15"/></svg>
+  </button>
+
+  <script src="script.js"></script>
+</body>
+</html>
