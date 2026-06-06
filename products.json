@@ -1,0 +1,28 @@
+[
+  {
+    "id": 1779540035166,
+    "name": "Clogs",
+    "price": 2800,
+    "stock": 1,
+    "category": "Casual",
+    "sizes": [],
+    "image": "images/clogs.jpg",
+    "description": "The global benchmark for casual, water-resistant, and incredibly lightweight foam footwear. They are highly favored for their durability and easy-to-clean design.",
+    "available": true,
+    "featured": false,
+    "rating": 4.5
+  },
+  {
+    "id": 1779547087723,
+    "name": "Converse",
+    "price": 1200,
+    "stock": 2,
+    "category": "Casual",
+    "sizes": [],
+    "image": "images/Converse.jpg",
+    "description": "low uncle perfect fir",
+    "available": true,
+    "featured": false,
+    "rating": 4.5
+  }
+]
